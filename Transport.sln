@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transport.WEB", "Transport.WEB\Transport.WEB.csproj", "{DA496EC2-2A8F-4FD7-A51C-040C53089889}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transport.Entity", "Transport.Entity\Transport.Entity.csproj", "{A50B74B0-FB0A-4EB9-9EB4-D8CD99476944}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DA496EC2-2A8F-4FD7-A51C-040C53089889}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA496EC2-2A8F-4FD7-A51C-040C53089889}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA496EC2-2A8F-4FD7-A51C-040C53089889}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA496EC2-2A8F-4FD7-A51C-040C53089889}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A50B74B0-FB0A-4EB9-9EB4-D8CD99476944}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A50B74B0-FB0A-4EB9-9EB4-D8CD99476944}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A50B74B0-FB0A-4EB9-9EB4-D8CD99476944}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A50B74B0-FB0A-4EB9-9EB4-D8CD99476944}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
