@@ -292,7 +292,7 @@ namespace Transport.WEB.Controllers
             var userLogins = await UserManager.GetLoginsAsync(User.Identity.GetUserId());
             var otherLogins = AuthenticationManager.GetExternalAuthenticationTypes().Where(auth => userLogins.All(ul => auth.AuthenticationType != ul.LoginProvider)).ToList();
             ViewBag.ShowRemoveButton = user.PasswordHash != null || userLogins.Count > 1;
-            return View(new ManageLoginsViewModel
+            return View(new Transport.WEB.Models.ManageLoginsViewModel
             {
                 CurrentLogins = userLogins,
                 OtherLogins = otherLogins

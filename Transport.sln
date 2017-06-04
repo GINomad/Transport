@@ -4,8 +4,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transport.WEB", "Transport.WEB\Transport.WEB.csproj", "{DA496EC2-2A8F-4FD7-A51C-040C53089889}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F710B25A-C574-441F-A4D2-5E60BC1B5EE9} = {F710B25A-C574-441F-A4D2-5E60BC1B5EE9}
+		{7812B4FE-3A90-4775-AAC3-E645010D497C} = {7812B4FE-3A90-4775-AAC3-E645010D497C}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transport.Entity", "Transport.Entity\Transport.Entity.csproj", "{A50B74B0-FB0A-4EB9-9EB4-D8CD99476944}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transport.Business", "Transport.Business\Transport.Business.csproj", "{7812B4FE-3A90-4775-AAC3-E645010D497C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A50B74B0-FB0A-4EB9-9EB4-D8CD99476944} = {A50B74B0-FB0A-4EB9-9EB4-D8CD99476944}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transport.Infrastructure", "Infrastructure\Transport.Infrastructure.csproj", "{F710B25A-C574-441F-A4D2-5E60BC1B5EE9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transport.ViewModels", "ViewModels\Transport.ViewModels.csproj", "{5C9F9FFA-9429-47C9-808C-E219BA4BC8DE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +34,18 @@ Global
 		{A50B74B0-FB0A-4EB9-9EB4-D8CD99476944}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A50B74B0-FB0A-4EB9-9EB4-D8CD99476944}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A50B74B0-FB0A-4EB9-9EB4-D8CD99476944}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7812B4FE-3A90-4775-AAC3-E645010D497C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7812B4FE-3A90-4775-AAC3-E645010D497C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7812B4FE-3A90-4775-AAC3-E645010D497C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7812B4FE-3A90-4775-AAC3-E645010D497C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F710B25A-C574-441F-A4D2-5E60BC1B5EE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F710B25A-C574-441F-A4D2-5E60BC1B5EE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F710B25A-C574-441F-A4D2-5E60BC1B5EE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F710B25A-C574-441F-A4D2-5E60BC1B5EE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C9F9FFA-9429-47C9-808C-E219BA4BC8DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C9F9FFA-9429-47C9-808C-E219BA4BC8DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C9F9FFA-9429-47C9-808C-E219BA4BC8DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C9F9FFA-9429-47C9-808C-E219BA4BC8DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

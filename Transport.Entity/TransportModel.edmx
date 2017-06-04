@@ -102,6 +102,7 @@
           <Property Name="FuelConsumption" Type="float" />
           <Property Name="DriverId" Type="int" Nullable="false" />
           <Property Name="TransportTypeId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
         <EntityType Name="TransportType">
           <Key>
@@ -109,7 +110,6 @@
           </Key>
           <Property Name="TransportTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Type" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_Adress_Order">
           <End Role="Order" Type="Self.Order" Multiplicity="1" />
@@ -406,6 +406,7 @@
           <NavigationProperty Name="Driver" Relationship="TransportDBModel.FK_Transport_Driver" FromRole="Transport" ToRole="Driver" />
           <NavigationProperty Name="Orders" Relationship="TransportDBModel.FK_Order_Transport" FromRole="Transport" ToRole="Order" />
           <NavigationProperty Name="TransportType" Relationship="TransportDBModel.FK_Transport_TransportType" FromRole="Transport" ToRole="TransportType" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="TransportType">
           <Key>
@@ -413,7 +414,6 @@
           </Key>
           <Property Name="TransportTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Type" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Transports" Relationship="TransportDBModel.FK_Transport_TransportType" FromRole="TransportType" ToRole="Transport" />
         </EntityType>
         <Association Name="FK_Adress_Order">
@@ -588,6 +588,7 @@
           <EntitySetMapping Name="Transports">
             <EntityTypeMapping TypeName="TransportDBModel.Transport">
               <MappingFragment StoreEntitySet="Transport">
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="TransportTypeId" ColumnName="TransportTypeId" />
                 <ScalarProperty Name="DriverId" ColumnName="DriverId" />
                 <ScalarProperty Name="FuelConsumption" ColumnName="FuelConsumption" />
@@ -601,7 +602,6 @@
           <EntitySetMapping Name="TransportTypes">
             <EntityTypeMapping TypeName="TransportDBModel.TransportType">
               <MappingFragment StoreEntitySet="TransportType">
-                <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="TransportTypeId" ColumnName="TransportTypeId" />
               </MappingFragment>

@@ -27,6 +27,7 @@ namespace Transport.Entity
         public Nullable<double> FuelConsumption { get; set; }
         public int DriverId { get; set; }
         public int TransportTypeId { get; set; }
+        public string Name { get; set; }
     
         public virtual Driver Driver { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
