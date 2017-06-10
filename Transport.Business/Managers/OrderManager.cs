@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using Transport.Business.Interfaces;
 using Transport.Entity;
 using Transport.Infrastructure;
+using Transport.Infrastructure.Enums;
 using Transport.ViewModels;
+using ViewModels;
 
 namespace Transport.Business.Managers
 {
@@ -16,9 +18,10 @@ namespace Transport.Business.Managers
         {
             using (IRepository<Order> orderRepository = Factory.GetService<IRepository<Order>>())
             {
+
                 var order = new Order()
                 {
-                    TransportId = model.Transport.TransportId,
+                    TransportId = ChoiceCar(model.ProductType),
                     StartDate = model.StartDate,
                     EndDate = model.EndDate
                 };
@@ -112,6 +115,107 @@ namespace Transport.Business.Managers
                     });
                 adressRepository.SaveChanges();                               
             }
+        }
+
+        private int ChoiceCar(ProductViewModel model)
+        {
+            using (IRepository<Transport.Entity.Transport> repository = Factory.GetService<IRepository<Transport.Entity.Transport>>())
+            {
+                if (!model.isLiquid)
+                {
+                    if(model.Weight <= 200)
+                    {
+                        if (model.Height <= 0.75 && model.Length <= 1 && model.Width <= 0.5)
+                        {
+                            var transport = repository.FirstOrDefault(x => x.TransportTypeId == (int)TransportTypes.PassengerCar);
+                            if(transport != null)
+                            {
+                                return transport.TransportId;
+                            }
+                            else
+                            {
+                                transport = repository.FirstOrDefault(x => x.TransportTypeId == (int)TransportTypes.Caravan);
+                                if(transport != null)
+                                {
+                                    return transport.TransportId;
+                                }
+                                else
+                                {
+                                    transport = repository.FirstOrDefault(x => x.TransportTypeId == (int)TransportTypes.Van);
+                                    if(transport != null)
+                                    {
+                                        return transport.TransportId;
+                                    }
+                                }
+                            }
+                            return 0;
+                        }
+                        else
+                        {
+                            if (model.Height < 1.5 && model.Length < 4 && model.Width < 3)
+                            {
+                                var transport = repository.FirstOrDefault(x => x.TransportTypeId == (int)TransportTypes.Caravan);
+                                if(transport != null)
+                                {
+                                    return transport.TransportId;
+                                }
+                                return 0;
+                            }
+                            else
+                            {
+                                var transport = repository.FirstOrDefault(x => x.TransportTypeId == (int)TransportTypes.Van);
+                                if(transport != null)
+                                {
+                                    return transport.TransportId;
+                                }
+                                return 0;
+                            }
+                        }
+                    }
+                    if (model.Weight > 200 && model.Weight <= 3000)
+                    {
+                        if (model.Height < 1.5 && model.Length < 4 && model.Width < 3)
+                        {
+                            var transport = repository.FirstOrDefault(x => x.TransportTypeId == (int)TransportTypes.Caravan);
+                            if (transport != null)
+                            {
+                                return transport.TransportId;
+                            }
+                            return 0;
+                        }
+                        else
+                        {
+                            var transport = repository.FirstOrDefault(x => x.TransportTypeId == (int)TransportTypes.Van);
+                            if (transport != null)
+                            {
+                                return transport.TransportId;
+                            }
+                            return 0;
+                        }
+                    }
+
+                    if(model.Weight > 3000)
+                    {
+                        var transport = repository.FirstOrDefault(x => x.TransportTypeId == (int)TransportTypes.Van);
+                        if (transport != null)
+                        {
+                            return transport.TransportId;
+                        }
+                        return 0;
+                    }
+                    return 0;
+                }
+                else
+                {
+                    var transport = repository.FirstOrDefault(x => x.TransportTypeId == (int)TransportTypes.Tank);
+                    if (transport != null)
+                    {
+                        return transport.TransportId;
+                    }
+                    return 0;
+                }
+                
+            }             
         }
     }
 }

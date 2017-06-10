@@ -8,6 +8,11 @@ namespace Transport.Infrastructure.Enums
 {
     public enum TransportTypes
     {
-        Refrejerator = 1
+        Refrejerator = 2,
+        Caravan = 3,
+        PassengerCar = 4,
+        Van = 5,
+        Tractor = 6,
+        Tank = 7
     }
 }

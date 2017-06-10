@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Transport.ViewModels;
+using ViewModels;
 
 namespace Transport.ViewModels
 {
@@ -16,6 +17,8 @@ namespace Transport.ViewModels
             ReceiverAdress = new AdressViewModel();
             Transport = new TransportViewModel();
             Transports = new List<TransportViewModel>();
+            StartDate = DateTime.Now;
+            EndDate = DateTime.Now;
         }
         public int OrderId { get; set; }
         
@@ -35,5 +38,7 @@ namespace Transport.ViewModels
         public TransportViewModel Transport { get; set; }
 
         public List<TransportViewModel> Transports { get; set; }
+
+        public ProductViewModel ProductType { get; set; }
     }
 }

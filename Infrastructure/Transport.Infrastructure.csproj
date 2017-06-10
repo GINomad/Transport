@@ -103,6 +103,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseRepository.cs" />
+    <Compile Include="DoubleModelBinder.cs" />
     <Compile Include="EnumExtension.cs" />
     <Compile Include="Enums\TransportTypes.cs" />
     <Compile Include="IRepository.cs" />

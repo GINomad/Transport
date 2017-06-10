@@ -22,3 +22,6 @@ select,
 textarea {
     max-width: 280px;
 }
+form-checkbox{
+    margin-top:11px!important;
+}
