@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Transport.ViewModels.TransportViewModel>
+
+@{
+    ViewBag.Title = "Транспорты";
+}
+
+<h2>Транспорты</h2>
+
+<div class="row">
+    <div class="col-md-1">
+        <p>
+            @Html.ActionLink("Добавить транспорт", "Create")
+        </p>
+    </div>
+    @*<div class="col-md-2">
+        <p>
+            @Html.ActionLink("Добавить тип транспорта", "CreateTransportType")
+        </p>
+    </div>*@
+</div>
+<table class="table">
+    <tr>       
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CarNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CarryingCapacity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FuelConsumption)
+        </th>
+        <th>
+            Габариты
+        </th> 
+        <th>
+            Тип
+        </th>
+        <th>
+            Водитель
+        </th>     
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CarNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CarryingCapacity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FuelConsumption)
+        </td>
+        <td>
+            @string.Format("{0}x{1}x{2}", item.Length,item.Width,item.Height)           
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Type.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Driver.DriverName)
+        </td>       
+    </tr>
+}
+
+</table>

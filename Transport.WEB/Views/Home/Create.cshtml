@@ -1,0 +1,143 @@
+﻿@model Transport.ViewModels.OrderViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Создание заказа</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">        
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })       
+
+        <div class="row" style="border-width:thin">
+            <div class="col-md-6">
+                <div class="form-group" style="margin-left:7px">
+                    @Html.LabelFor(model => model.SenderAdress, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div>
+                        @Html.EditorFor(model => model.SenderAdress.AdressName, new { htmlAttributes = new { @class = "form-control col-md-9" } })
+                    </div>
+                </div>
+                <div class="form-group" style="margin-left:7px">
+                    @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div>
+                        @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control col-md-8 datepicker" } })
+                        @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ReceiverAdress, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div>
+                        @Html.EditorFor(model => model.ReceiverAdress.AdressName, new { htmlAttributes = new { @class = "form-control col-md-9" } })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div>
+                        @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control col-md-9 datepicker" } })
+                        @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>                   
+        <div class="row panel panel-info" style="margin-top:30px" novalidate>
+            <div class="panel-heading">Укажите характеристики товара</div>
+            <div class="panel-body">
+                <div class="col-md-3">
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-3" style="padding-right:0px">
+                                @Html.LabelFor(model => model.ProductType.Weight, htmlAttributes: new { @class = "control-label" }):
+                            </div>
+                            <div class="col-md-5" style="padding-left:0px">
+                                @Html.EditorFor(model => model.ProductType.Weight, new { htmlAttributes = new { @class = "form-control col-md-9", id = "weight", data_val="false" } })                             
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-3">
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-4" style="padding-right:0px">
+                                @Html.LabelFor(model => model.ProductType.Height, htmlAttributes: new { @class = "control-label" })
+                            </div>
+                            <div class="col-md-5">
+                                @Html.EditorFor(model => model.ProductType.Height, new { htmlAttributes = new { @class = "form-control col-md-9", data_val = "false" } })                      
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-4" style="padding-right:0px">
+                                @Html.LabelFor(model => model.ProductType.Width, htmlAttributes: new { @class = "control-label" })
+                            </div>
+                            <div class="col-md-5">
+                                @Html.EditorFor(model => model.ProductType.Width, new { htmlAttributes = new { @class = "form-control col-md-9", data_val = "false" } })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-4" style="padding-right:0px">
+                                @Html.LabelFor(model => model.ProductType.Length, htmlAttributes: new { @class = "control-label" })
+                            </div>
+                            <div class="col-md-5">
+                                @Html.EditorFor(model => model.ProductType.Length, new { htmlAttributes = new { @class = "form-control col-md-9", data_val = "false" } })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @*   <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label col-md-7">Слабо хрупкий: </label>
+                        @Html.RadioButtonFor(model => model.ProductType.Fragility, 1, htmlAttributes: new { data_val = "false" } )
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-7">Средне хрупкий: </label>
+                        @Html.RadioButtonFor(model => model.ProductType.Fragility, 2, htmlAttributes: new { data_val = "false" } )
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-7">Сильно хрупкий: </label>
+                        @Html.RadioButtonFor(model => model.ProductType.Fragility, 3,  htmlAttributes: new { data_val = "false" } )
+                    </div>                
+                </div>*@
+                <div class="col-md-3">
+                    <span>Если вы перевозите жидкость, оставьте остальные поля пустыми</span>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ProductType.isLiquid, htmlAttributes: new { @class = "control-label col-md-10" })
+                        <div style="margin-top:7px">
+                            @Html.CheckBoxFor(model => model.ProductType.isLiquid, htmlAttributes: new { @class= "chk", data_val = "false" })                       
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="form-group">
+            <div class="col-md-10">
+                <input type="submit" value="OK" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Назад", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/moment.min.js"></script>
+<script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="~/Scripts/moment-with-locales.min.js"></script>
+<script type="text/javascript" src="~/Scripts/form.js"></script>
+}

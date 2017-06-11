@@ -1,0 +1,116 @@
+﻿@model Transport.ViewModels.TransportViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Создание транспорта</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CarNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CarNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CarNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CarryingCapacity, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CarryingCapacity, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CarryingCapacity, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FuelConsumption, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FuelConsumption, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FuelConsumption, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Length, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Length, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Length, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Width, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Width, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Width, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Height, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Height, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Height, "", new { @class = "text-danger" })
+            </div>
+        </div>       
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select id="Type" name="Type.TypeId" class="form-control" data-val-required="Это поле обязательно" data-val="true">
+                    @foreach(var item in Model.Types)
+                    {
+                        <option value="@item.TypeId">@item.Name</option>
+                    }
+                </select>
+                <span class="text-danger field-validation-valid" data-valmsg-for="Type.TypeId" data-valmsg-replace="true"></span>
+            </div>
+        </div> 
+        <div class="form-group">
+            @Html.LabelFor(model => model.Driver, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select id="Type" name="Driver.DriverId" class="form-control" data-val-required="Это поле обязательно" data-val="true">
+                    @foreach (var item in Model.Drivers)
+                    {
+                        <option value="@item.DriverId">@item.DriverName</option>
+                    }
+                </select>
+                <span class="text-danger field-validation-valid" data-valmsg-for="Driver.DriverId" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+        @Html.HiddenFor(model => model.Drivers)
+        @Html.HiddenFor(model => model.Types)
+         
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="ОК" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Назад", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
