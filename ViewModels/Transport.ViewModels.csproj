@@ -42,6 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdressViewModel.cs" />
+    <Compile Include="CityDistanceViewModel.cs" />
+    <Compile Include="CityModel.cs" />
     <Compile Include="DriverViewModel.cs" />
     <Compile Include="OrderViewModel.cs" />
     <Compile Include="ProductViewModel.cs" />

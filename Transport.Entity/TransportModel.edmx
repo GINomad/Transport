@@ -15,15 +15,6 @@
           <Property Name="Model" Type="varbinary(max)" Nullable="false" />
           <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
         </EntityType>
-        <EntityType Name="Adress">
-          <Key>
-            <PropertyRef Name="AdressId" />
-          </Key>
-          <Property Name="AdressId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="IsSender" Type="bit" Nullable="false" />
-          <Property Name="OrderId" Type="int" Nullable="false" />
-        </EntityType>
         <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="Id" />
@@ -75,6 +66,22 @@
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Destination">
+          <Key>
+            <PropertyRef Name="DestinationId" />
+          </Key>
+          <Property Name="DestinationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Source" Type="int" Nullable="false" />
+          <Property Name="Target" Type="int" Nullable="false" />
+          <Property Name="Destination" Type="float" Nullable="false" />
+        </EntityType>
         <EntityType Name="Driver">
           <Key>
             <PropertyRef Name="DriverId" />
@@ -90,6 +97,15 @@
           <Property Name="TransportId" Type="int" Nullable="false" />
           <Property Name="StartDate" Type="datetime" Nullable="false" />
           <Property Name="EndDate" Type="datetime" Nullable="false" />
+          <Property Name="FromCity" Type="int" Nullable="false" />
+          <Property Name="ToCity" Type="int" Nullable="false" />
+          <Property Name="FromAddress" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="ToAddress" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Weight" Type="float" Nullable="false" />
+          <Property Name="Length" Type="float" Nullable="false" />
+          <Property Name="Width" Type="float" Nullable="false" />
+          <Property Name="Height" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="Transport">
           <Key>
@@ -111,18 +127,6 @@
           <Property Name="TransportTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <Association Name="FK_Adress_Order">
-          <End Role="Order" Type="Self.Order" Multiplicity="1" />
-          <End Role="Adress" Type="Self.Adress" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Order">
-              <PropertyRef Name="OrderId" />
-            </Principal>
-            <Dependent Role="Adress">
-              <PropertyRef Name="OrderId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -217,20 +221,17 @@
         </Association>
         <EntityContainer Name="TransportDBModelStoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Adress" EntityType="Self.Adress" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Destination" EntityType="Self.Destination" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Driver" EntityType="Self.Driver" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Transport" EntityType="Self.Transport" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TransportType" EntityType="Self.TransportType" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Adress_Order" Association="Self.FK_Adress_Order">
-            <End Role="Order" EntitySet="Order" />
-            <End Role="Adress" EntitySet="Adress" />
-          </AssociationSet>
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -266,19 +267,16 @@
       <Schema Namespace="TransportDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="TransportDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="C__MigrationHistory" EntityType="TransportDBModel.C__MigrationHistory" />
-          <EntitySet Name="Adresses" EntityType="TransportDBModel.Adress" />
           <EntitySet Name="AspNetRoles" EntityType="TransportDBModel.AspNetRole" />
           <EntitySet Name="AspNetUserClaims" EntityType="TransportDBModel.AspNetUserClaim" />
           <EntitySet Name="AspNetUserLogins" EntityType="TransportDBModel.AspNetUserLogin" />
           <EntitySet Name="AspNetUsers" EntityType="TransportDBModel.AspNetUser" />
+          <EntitySet Name="Cities" EntityType="TransportDBModel.City" />
+          <EntitySet Name="Destinations" EntityType="TransportDBModel.Destination" />
           <EntitySet Name="Drivers" EntityType="TransportDBModel.Driver" />
           <EntitySet Name="Orders" EntityType="TransportDBModel.Order" />
           <EntitySet Name="Transports" EntityType="TransportDBModel.Transport" />
           <EntitySet Name="TransportTypes" EntityType="TransportDBModel.TransportType" />
-          <AssociationSet Name="FK_Adress_Order" Association="TransportDBModel.FK_Adress_Order">
-            <End Role="Order" EntitySet="Orders" />
-            <End Role="Adress" EntitySet="Adresses" />
-          </AssociationSet>
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="TransportDBModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
@@ -313,16 +311,6 @@
           <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
           <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
           <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Adress">
-          <Key>
-            <PropertyRef Name="AdressId" />
-          </Key>
-          <Property Name="AdressId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="IsSender" Type="Boolean" Nullable="false" />
-          <Property Name="OrderId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Order" Relationship="TransportDBModel.FK_Adress_Order" FromRole="Adress" ToRole="Order" />
         </EntityType>
         <EntityType Name="AspNetRole">
           <Key>
@@ -373,6 +361,22 @@
           <NavigationProperty Name="AspNetUserLogins" Relationship="TransportDBModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
           <NavigationProperty Name="AspNetRoles" Relationship="TransportDBModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
         </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Destination">
+          <Key>
+            <PropertyRef Name="DestinationId" />
+          </Key>
+          <Property Name="DestinationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Source" Type="Int32" Nullable="false" />
+          <Property Name="Target" Type="Int32" Nullable="false" />
+          <Property Name="Destination1" Type="Double" Nullable="false" />
+        </EntityType>
         <EntityType Name="Driver">
           <Key>
             <PropertyRef Name="DriverId" />
@@ -389,8 +393,16 @@
           <Property Name="TransportId" Type="Int32" Nullable="false" />
           <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Adresses" Relationship="TransportDBModel.FK_Adress_Order" FromRole="Order" ToRole="Adress" />
+          <Property Name="FromCity" Type="Int32" Nullable="false" />
+          <Property Name="ToCity" Type="Int32" Nullable="false" />
+          <Property Name="FromAddress" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ToAddress" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Transport" Relationship="TransportDBModel.FK_Order_Transport" FromRole="Order" ToRole="Transport" />
+          <Property Name="Weight" Type="Double" Nullable="false" />
+          <Property Name="Length" Type="Double" Nullable="false" />
+          <Property Name="Width" Type="Double" Nullable="false" />
+          <Property Name="Height" Type="Double" Nullable="false" />
         </EntityType>
         <EntityType Name="Transport">
           <Key>
@@ -403,10 +415,10 @@
           <Property Name="FuelConsumption" Type="Double" />
           <Property Name="DriverId" Type="Int32" Nullable="false" />
           <Property Name="TransportTypeId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Driver" Relationship="TransportDBModel.FK_Transport_Driver" FromRole="Transport" ToRole="Driver" />
           <NavigationProperty Name="Orders" Relationship="TransportDBModel.FK_Order_Transport" FromRole="Transport" ToRole="Order" />
           <NavigationProperty Name="TransportType" Relationship="TransportDBModel.FK_Transport_TransportType" FromRole="Transport" ToRole="TransportType" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="TransportType">
           <Key>
@@ -416,18 +428,6 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Transports" Relationship="TransportDBModel.FK_Transport_TransportType" FromRole="TransportType" ToRole="Transport" />
         </EntityType>
-        <Association Name="FK_Adress_Order">
-          <End Type="TransportDBModel.Order" Role="Order" Multiplicity="1" />
-          <End Type="TransportDBModel.Adress" Role="Adress" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Order">
-              <PropertyRef Name="OrderId" />
-            </Principal>
-            <Dependent Role="Adress">
-              <PropertyRef Name="OrderId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Type="TransportDBModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -512,16 +512,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Adresses">
-            <EntityTypeMapping TypeName="TransportDBModel.Adress">
-              <MappingFragment StoreEntitySet="Adress">
-                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
-                <ScalarProperty Name="IsSender" ColumnName="IsSender" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="AdressId" ColumnName="AdressId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="AspNetRoles">
             <EntityTypeMapping TypeName="TransportDBModel.AspNetRole">
               <MappingFragment StoreEntitySet="AspNetRoles">
@@ -567,6 +557,24 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Cities">
+            <EntityTypeMapping TypeName="TransportDBModel.City">
+              <MappingFragment StoreEntitySet="City">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Destinations">
+            <EntityTypeMapping TypeName="TransportDBModel.Destination">
+              <MappingFragment StoreEntitySet="Destination">
+                <ScalarProperty Name="Destination1" ColumnName="Destination" />
+                <ScalarProperty Name="Target" ColumnName="Target" />
+                <ScalarProperty Name="Source" ColumnName="Source" />
+                <ScalarProperty Name="DestinationId" ColumnName="DestinationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Drivers">
             <EntityTypeMapping TypeName="TransportDBModel.Driver">
               <MappingFragment StoreEntitySet="Driver">
@@ -578,6 +586,15 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="TransportDBModel.Order">
               <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="Width" ColumnName="Width" />
+                <ScalarProperty Name="Length" ColumnName="Length" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ToAddress" ColumnName="ToAddress" />
+                <ScalarProperty Name="FromAddress" ColumnName="FromAddress" />
+                <ScalarProperty Name="ToCity" ColumnName="ToCity" />
+                <ScalarProperty Name="FromCity" ColumnName="FromCity" />
                 <ScalarProperty Name="EndDate" ColumnName="EndDate" />
                 <ScalarProperty Name="StartDate" ColumnName="StartDate" />
                 <ScalarProperty Name="TransportId" ColumnName="TransportId" />

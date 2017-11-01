@@ -43,6 +43,8 @@ namespace Transport.Business.Util
             container.RegisterType<IDriverManager, DriverManager>();
             container.RegisterType<ITransportManager, TransportManager>();
             container.RegisterType<IOrderManager, OrderManager>();
+            container.RegisterType<IDijkstraAlgorithm, DijkstraAlgorithm>();
+            container.RegisterType<ICityManager, CityManager>();
         }
 
         public static void RegisterTypes(IUnityContainer container)
@@ -50,8 +52,9 @@ namespace Transport.Business.Util
             container.RegisterType<IRepository<TransportType>, BaseRepository<TransportType>>();
             container.RegisterType<IRepository<Transport.Entity.Transport>, BaseRepository<Entity.Transport>>();
             container.RegisterType<IRepository<Driver>, BaseRepository<Driver>>();
-            container.RegisterType<IRepository<Adress>, BaseRepository<Adress>>();
             container.RegisterType<IRepository<Order>, BaseRepository<Order>>();
+            container.RegisterType<IRepository<City>, BaseRepository<City>>();
+            container.RegisterType<IRepository<Destination>, BaseRepository<Destination>>();
         }
 
         public T GetService<T>()

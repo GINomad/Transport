@@ -14,19 +14,20 @@ namespace Transport.Entity
     
     public partial class Order
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Order()
-        {
-            this.Adresses = new HashSet<Adress>();
-        }
-    
         public int OrderId { get; set; }
         public int TransportId { get; set; }
         public System.DateTime StartDate { get; set; }
         public System.DateTime EndDate { get; set; }
+        public int FromCity { get; set; }
+        public int ToCity { get; set; }
+        public string FromAddress { get; set; }
+        public string ToAddress { get; set; }
+        public string Name { get; set; }
+        public double Weight { get; set; }
+        public double Length { get; set; }
+        public double Width { get; set; }
+        public double Height { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Adress> Adresses { get; set; }
         public virtual Transport Transport { get; set; }
     }
 }

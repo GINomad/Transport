@@ -11,34 +11,20 @@ namespace Transport.ViewModels
 {
     public class OrderViewModel
     {
-        public OrderViewModel()
-        {
-            SenderAdress = new AdressViewModel();
-            ReceiverAdress = new AdressViewModel();
-            Transport = new TransportViewModel();
-            Transports = new List<TransportViewModel>();
-            StartDate = DateTime.Now;
-            EndDate = DateTime.Now;
-        }
         public int OrderId { get; set; }
-        
-        [Display(Name = "Дата отправки")]
-        public DateTime StartDate { get; set; }
-
-        [Display(Name = "Дата доставки")]
-        public DateTime EndDate { get; set; }
-
-        [Display(Name = "Адрес отправителя")]
-        public AdressViewModel SenderAdress { get; set; }
-
-        [Display(Name = "Адрес доставки")]
-        public AdressViewModel ReceiverAdress { get; set; }
-
-        [Display(Name = "Транспорт для перевозки")]
-        public TransportViewModel Transport { get; set; }
-
-        public List<TransportViewModel> Transports { get; set; }
-
-        public ProductViewModel ProductType { get; set; }
+        public int FromCity { get; set; }
+        public int ToCity { get; set; }
+        public string FromAddress { get; set; }
+        public string ToAddress { get; set; }
+        public DateTime FromDate { get; set; }
+        public DateTime ToDate { get; set; }
+        public double Weight { get; set; }
+        public double Height { get; set; } 
+        public double Width { get; set; }
+        public double Length { get; set; }
+        public string Name { get;  set; }
+        public string TransportName { get; set; }
+        public string FromCityName { get; set; }
+        public string ToCityName { get; set; }
     }
 }

@@ -1,14 +1,15 @@
 ﻿<!DOCTYPE html>
-<html>
+<html ng-app="transportApp">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/angular")
 
 </head>
-<body>
+<body >
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -24,6 +25,7 @@
                     <li>@Html.ActionLink("Заказы", "Index", "Home")</li>
                     <li>@Html.ActionLink("Транспорт", "Index", "Transport")</li>
                     <li>@Html.ActionLink("Водители", "Index", "Driver")</li>
+                    <li>@Html.ActionLink("Населенные пункты","Index","City")</li>
 
                 </ul>                
             </div>
@@ -38,7 +40,7 @@
     </div>
 
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/bootstrap")   
     @RenderSection("scripts", required: false)
 </body>
 </html>

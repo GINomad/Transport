@@ -51,9 +51,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Adress.cs">
-      <DependentUpon>TransportModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="AspNetRole.cs">
       <DependentUpon>TransportModel.tt</DependentUpon>
     </Compile>
@@ -66,7 +63,13 @@
     <Compile Include="AspNetUserLogin.cs">
       <DependentUpon>TransportModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="City.cs">
+      <DependentUpon>TransportModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="C__MigrationHistory.cs">
+      <DependentUpon>TransportModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Destination.cs">
       <DependentUpon>TransportModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Driver.cs">

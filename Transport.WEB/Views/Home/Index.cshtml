@@ -9,43 +9,45 @@
 <p>
     @Html.ActionLink("Создать заказ", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.StartDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EndDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SenderAdress)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ReceiverAdress)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Transport)
-        </th>               
-    </tr>
+<div ng-controller="dashboardController">
+    <table class="table table-striped">
+        <tr>
+            <th>Название заказа</th>
+            <th>
+                Дата отправки
+            </th>
+            <th>
+                Дата доставки
+            </th>
+            <th>
+                Адрес отправителя
+            </th>
+            <th>
+                Адрес получателя
+            </th>
+            <th>
+                Тип транспорта
+            </th>
+        </tr>
+        <tr ng-repeat="order in orders" ng-click="details($index)">
+            <td>{{order.name}}</td>
+            <td>
+                {{order.fromDate | date: 'dd/MM/yyyy'}}
+            </td>
+            <td>
+                {{order.toDate | date: 'dd/MM/yyyy'}}
+            </td>
+            <td>
+                {{order.fromCityName + ', ' + order.fromAddress}}
+            </td>
+            <td>
+                {{order.toCityName + ', ' + order.toAddress}}
+            </td>
+            <td>
+                {{order.transportName}}
+            </td>
+        </tr>        
+    </table>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @item.StartDate.ToShortDateString()
-        </td>
-        <td>
-            @item.EndDate.ToShortDateString()
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SenderAdress.AdressName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ReceiverAdress.AdressName)
-        </td>       
-        <td>
-            @Html.DisplayFor(modelItem => item.Transport.Name)
-        </td>
-    </tr>
-}
-
-</table>
+</div>
+<script src="~/Scripts/controllers/dashboardController.js"></script>

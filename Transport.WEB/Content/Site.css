@@ -25,3 +25,18 @@ textarea {
 form-checkbox{
     margin-top:11px!important;
 }
+.has-error{
+    color:red;
+}
+.btn-footer{
+    text-align:right;
+}
+.padding-left-inherit{
+    padding-left:inherit;
+}
+.padding-right-inherit{
+    padding-right:inherit;
+}
+.margin-top-15{
+    margin-top:15px;
+}

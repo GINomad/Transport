@@ -19,6 +19,10 @@ namespace Transport.WEB
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
+            bundles.Add(new ScriptBundle("~/bundles/angular")
+                .Include("~/Scripts/angular.min.js","~/Scripts/angular-cookies.min.js","~/Scripts/angular-loader.min.js","~/Scripts/angular-route.min.js","~/Scripts/transportModule.js")
+                );
+
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));

@@ -103,10 +103,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseBusiness.cs" />
+    <Compile Include="Interfaces\ICityManager.cs" />
+    <Compile Include="Interfaces\IDijkstraAlgorithm.cs" />
     <Compile Include="Interfaces\IDriverManager.cs" />
     <Compile Include="Interfaces\IOrderManager.cs" />
     <Compile Include="Interfaces\ITransportManager.cs" />
     <Compile Include="Interfaces\ITransportTypeManager.cs" />
+    <Compile Include="Managers\CityManager.cs" />
+    <Compile Include="Managers\DijkstraAlgorithm.cs" />
     <Compile Include="Managers\DriverManager.cs" />
     <Compile Include="Managers\OrderManager.cs" />
     <Compile Include="Managers\TransportManager.cs" />

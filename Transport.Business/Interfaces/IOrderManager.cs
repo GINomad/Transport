@@ -13,6 +13,7 @@ namespace Transport.Business.Interfaces
 
         List<OrderViewModel> GetOrders();
 
-        OrderViewModel GetNewOrder(OrderViewModel model);
+        IEnumerable<int> BuildPath(int id);
     }
+   
 }

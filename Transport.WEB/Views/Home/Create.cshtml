@@ -1,133 +1,159 @@
-﻿@model Transport.ViewModels.OrderViewModel
-
-@{
+﻿@{
     ViewBag.Title = "Create";
 }
 
-<h2>Создание заказа</h2>
-
-
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">        
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })       
-
-        <div class="row" style="border-width:thin">
-            <div class="col-md-6">
-                <div class="form-group" style="margin-left:7px">
-                    @Html.LabelFor(model => model.SenderAdress, htmlAttributes: new { @class = "control-label col-md-4" })
-                    <div>
-                        @Html.EditorFor(model => model.SenderAdress.AdressName, new { htmlAttributes = new { @class = "form-control col-md-9" } })
+<div class="margin-top-15" ng-controller="orderController">
+    <form name="orderForm" novalidate>
+        <div class="row">
+            <div class="col-md-6 padding-left-inherit">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        Отправитель
                     </div>
-                </div>
-                <div class="form-group" style="margin-left:7px">
-                    @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-4" })
-                    <div>
-                        @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control col-md-8 datepicker" } })
-                        @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label class="control-label">Город</label>
+                            <div>
+                                <select class="form-control" name="fromCity" ng-model="formModel.fromCity" required>
+                                    <option ng-show='formModel.fromCity == ""' ng-selected='formModel.fromCity == ""' value="">Выберите город</option>
+                                    <option ng-repeat="city in cities" value="{{city.id}}">{{city.name}}</option>
+                                </select>
+                                <span class="has-error" ng-show="orderForm.$submitted">
+                                    <span ng-show="orderForm.fromCity == '' || orderForm.fromCity < 1">Это поле обязательное</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Адрес</label>
+                            <div>
+                                <input class="form-control" name="fromAddress" ng-model="formModel.fromAddress" required/>
+                                <span class="has-error" ng-show="orderForm.$submitted">
+                                    <span ng-show="orderForm.fromAddress.$error.required">Это поле обязательное</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Дата отправки</label>
+                            <div>
+                                <input class="form-control datepicker" name="fromDate" type="datetime" ng-model="formModel.fromDate" required />
+                                <span class="has-error" ng-show="orderForm.$submitted">
+                                    <span ng-show="orderForm.fromDate.$error.required">Это поле обязательное</span>
+                                </span>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                </div>                                              
             </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    @Html.LabelFor(model => model.ReceiverAdress, htmlAttributes: new { @class = "control-label col-md-4" })
-                    <div>
-                        @Html.EditorFor(model => model.ReceiverAdress.AdressName, new { htmlAttributes = new { @class = "form-control col-md-9" } })
+            <div class="col-md-6 padding-right-inherit">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        Получатель
                     </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-4" })
-                    <div>
-                        @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control col-md-9 datepicker" } })
-                        @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-            </div>
-        </div>                   
-        <div class="row panel panel-info" style="margin-top:30px" novalidate>
-            <div class="panel-heading">Укажите характеристики товара</div>
-            <div class="panel-body">
-                <div class="col-md-3">
-                    <div class="row">
+                    <div class="panel-body">
                         <div class="form-group">
-                            <div class="col-md-3" style="padding-right:0px">
-                                @Html.LabelFor(model => model.ProductType.Weight, htmlAttributes: new { @class = "control-label" }):
-                            </div>
-                            <div class="col-md-5" style="padding-left:0px">
-                                @Html.EditorFor(model => model.ProductType.Weight, new { htmlAttributes = new { @class = "form-control col-md-9", id = "weight", data_val="false" } })                             
+                            <label class="control-label">Город</label>
+                            <div>
+                                <select class="form-control" name="toCity" ng-model="formModel.toCity" required>
+                                    <option ng-show='formModel.toCity == ""' ng-selected='formModel.toCity == ""' value="">Выберите город</option>
+                                    <option ng-repeat="city in cities" value="{{city.id}}">{{city.name}}</option>
+                                </select>
+                                <span class="has-error" ng-show="orderForm.$submitted">
+                                    <span ng-show="orderForm.toCity == '' || orderForm.toCity < 1">Это поле обязательное</span>
+                                </span>
                             </div>
                         </div>
-                    </div>
-
-                </div>
-                <div class="col-md-3">
-                    <div class="row">
                         <div class="form-group">
-                            <div class="col-md-4" style="padding-right:0px">
-                                @Html.LabelFor(model => model.ProductType.Height, htmlAttributes: new { @class = "control-label" })
-                            </div>
-                            <div class="col-md-5">
-                                @Html.EditorFor(model => model.ProductType.Height, new { htmlAttributes = new { @class = "form-control col-md-9", data_val = "false" } })                      
+                            <label class="control-label">Адрес</label>
+                            <div>
+                                <input class="form-control" name="toAddress" ng-model="formModel.toAddress" required />
+                                <span class="has-error" ng-show="orderForm.$submitted">
+                                    <span ng-show="orderForm.toAddress.$error.required">Это поле обязательное</span>
+                                </span>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="form-group">
-                            <div class="col-md-4" style="padding-right:0px">
-                                @Html.LabelFor(model => model.ProductType.Width, htmlAttributes: new { @class = "control-label" })
-                            </div>
-                            <div class="col-md-5">
-                                @Html.EditorFor(model => model.ProductType.Width, new { htmlAttributes = new { @class = "form-control col-md-9", data_val = "false" } })
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group">
-                            <div class="col-md-4" style="padding-right:0px">
-                                @Html.LabelFor(model => model.ProductType.Length, htmlAttributes: new { @class = "control-label" })
-                            </div>
-                            <div class="col-md-5">
-                                @Html.EditorFor(model => model.ProductType.Length, new { htmlAttributes = new { @class = "form-control col-md-9", data_val = "false" } })
+                            <label class="control-label">Дата отправки</label>
+                            <div>
+                                <input class="form-control datepicker" name="toDate" type="datetime" ng-model="formModel.toDate" required />
+                                <span class="has-error" ng-show="orderForm.$submitted">
+                                    <span ng-show="orderForm.toDate.$error.required">Это поле обязательное</span>
+                                </span>
                             </div>
                         </div>
                     </div>
-                </div>
-            @*   <div class="col-md-3">
-                    <div class="form-group">
-                        <label class="control-label col-md-7">Слабо хрупкий: </label>
-                        @Html.RadioButtonFor(model => model.ProductType.Fragility, 1, htmlAttributes: new { data_val = "false" } )
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-7">Средне хрупкий: </label>
-                        @Html.RadioButtonFor(model => model.ProductType.Fragility, 2, htmlAttributes: new { data_val = "false" } )
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-7">Сильно хрупкий: </label>
-                        @Html.RadioButtonFor(model => model.ProductType.Fragility, 3,  htmlAttributes: new { data_val = "false" } )
-                    </div>                
-                </div>*@
-                <div class="col-md-3">
-                    <span>Если вы перевозите жидкость, оставьте остальные поля пустыми</span>
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.ProductType.isLiquid, htmlAttributes: new { @class = "control-label col-md-10" })
-                        <div style="margin-top:7px">
-                            @Html.CheckBoxFor(model => model.ProductType.isLiquid, htmlAttributes: new { @class= "chk", data_val = "false" })                       
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-        </div>
-        <div class="form-group">
-            <div class="col-md-10">
-                <input type="submit" value="OK" class="btn btn-success" />
+                </div> 
             </div>
         </div>
-    </div>
-}
+        <div class="row">
+            <div class="panel panel-info">
+                <div class="panel-heading">Характеристики товара</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label">Название товара</label>
+                            <div>
+                                <input class="form-control" name="name" ng-model="formModel.name" required />
+                                <span class="has-error" ng-show="orderForm.$submitted">
+                                    <span ng-show="orderForm.name.$error.required">Это поле обязательное</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Вес</label>
+                                <div>
+                                    <input class="form-control" name="weight"  ng-model="formModel.weight" required />
+                                    <span class="has-error" ng-show="orderForm.$submitted">
+                                        <span ng-show="orderForm.weight.$error.required">Это поле обязательное</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Высота</label>
+                                <div>
+                                    <input class="form-control" name="height" ng-model="formModel.height" required />
+                                    <span class="has-error" ng-show="orderForm.$submitted">
+                                        <span ng-show="orderForm.height.$error.required">Это поле обязательное</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Ширина</label>
+                                <div>
+                                    <input class="form-control" name="width" ng-model="formModel.width" required />
+                                    <span class="has-error" ng-show="orderForm.$submitted">
+                                        <span ng-show="orderForm.width.$error.required">Это поле обязательное</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Длинна</label>
+                                <div>
+                                    <input class="form-control" name="length" ng-model="formModel.length" required />
+                                    <span class="has-error" ng-show="orderForm.$submitted">
+                                        <span ng-show="orderForm.length.$error.required">Это поле обязательное</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row modal-footer padding-right-inherit">
+            <button class="btn btn-success" ng-click="createOrder(orderForm)">Подтвердить</button>
+        </div>
+    </form>   
+</div>
+
 
 <div>
     @Html.ActionLink("Назад", "Index")
@@ -140,4 +166,5 @@
 <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
 <script type="text/javascript" src="~/Scripts/moment-with-locales.min.js"></script>
 <script type="text/javascript" src="~/Scripts/form.js"></script>
+<script src="~/Scripts/controllers/orderController.js"></script>
 }

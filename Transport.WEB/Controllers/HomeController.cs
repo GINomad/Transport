@@ -13,30 +13,35 @@ namespace Transport.WEB.Controllers
     {        
         public ActionResult Index()
         {
-            var orders = Factory.GetService<IOrderManager>().GetOrders();
-            return View(orders);
+            /*var algorithm = Factory.GetService<IDijkstraAlgorithm>();
+            algorithm.Initialize(1, 9);
+            var result = algorithm.GetPath();
+            if(result != null)
+            {
+                ViewBag.Test = result;
+            }*/
+            return View();
         }
 
         [HttpGet]
         public ActionResult Create()
         {
-            var order = Factory.GetService<IOrderManager>().GetNewOrder(new ViewModels.OrderViewModel());
-            return View(order);
+            return View();
         }
 
         [HttpPost]
         public ActionResult Create(OrderViewModel model)
         {
-            model.SenderAdress.IsSender = true;
+            //model.SenderAdress.IsSender = true;
             Factory.GetService<IOrderManager>().AddOrder(model);
             return RedirectToAction("Index");
         }
 
-        public ActionResult About()
+        public ActionResult Details(int id)
         {
-            ViewBag.Message = "Your application description page.";
+            var result = Factory.GetService<IOrderManager>().BuildPath(id);
 
-            return View();
+            return View(result);
         }
 
         public ActionResult Contact()

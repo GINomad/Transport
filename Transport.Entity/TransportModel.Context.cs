@@ -26,11 +26,12 @@ namespace Transport.Entity
         }
     
         public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
-        public virtual DbSet<Adress> Adresses { get; set; }
         public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
+        public virtual DbSet<City> Cities { get; set; }
+        public virtual DbSet<Destination> Destinations { get; set; }
         public virtual DbSet<Driver> Drivers { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Transport> Transports { get; set; }
