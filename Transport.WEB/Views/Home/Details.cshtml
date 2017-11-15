@@ -1,0 +1,22 @@
+﻿@model ViewModels.DetailsViewModel
+
+<h1>Маршрут</h1>
+@if (Model != null)
+{
+    <ol class="breadcrumb">
+        @if (Model.Cities != null)
+        {
+            foreach (var city in Model.Cities)
+            {
+                <li><a style="cursor:pointer">@city</a></li>
+            }
+        }
+
+    </ol>
+
+    <h1>Общее расстояние: @Model.TotalDistance км.</h1>
+    <h2>Примерное время прибытие: @Model.EstimatedTime мин.</h2>
+    <h2>Транспорт: @Model.TransportName</h2>
+}
+
+

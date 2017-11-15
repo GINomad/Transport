@@ -1,0 +1,97 @@
+﻿@model Transport.ViewModels.CityModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var error = ViewBag.Error != null ? ViewBag.Error.ToString() : null;
+}
+@if (error != null)
+{
+    <h2 style="margin-left:-16px"><span class="text-danger">@error</span></h2>
+}
+else
+{
+    <h2 style="margin-left:-16px">Населенные пункты</h2>
+}
+
+<div class="row">
+    <div class="col-md-4">
+        @using (Html.BeginForm())
+        {
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="control-label" style="text-align:left">Добавьте новый населенный пункт</div>
+                    @Html.HiddenFor(x => x.Id)
+                    @Html.EditorFor(x => x.Name, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                <div class="form-group">
+                    <div>
+                        <input type="submit" value="ОК" class="btn btn-primary" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="col-md-8" ng-controller="cityController">
+        <div class="row" ng-show="alreadyExist"><span class="has-error">Данный маршрут уже существует.</span></div>
+        <div class="row">
+            <form name="cityForm" novalidate>
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <div class="control-label">
+                                <label>Стартовый населенный пункт</label>
+                            </div>
+                            <div>
+                                <select class="form-control" name="from" ng-model="formModel.from" required>
+                                    <option ng-show='formModel.from == ""' ng-selected='formModel.from == ""' value="">Выберите город</option>
+                                    <option ng-repeat="city in cities" value="{{city.id}}">{{city.name}}</option>
+                                </select>
+                                <span class="has-error" ng-show="cityForm.$submitted">
+                                    <span ng-show="cityForm.from.$error.required">Это поле обязательно</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <div>
+                                <label>Расстояние</label>
+                            </div>
+                            <div>
+                                <input name="distance" class="form-control" ng-model="formModel.distance" required />
+                                <span class="has-error" ng-show="cityForm.$submitted">
+                                    <span ng-show="cityForm.distance.$error.required">Это поле обязательно</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <div class="control-label">
+                                <label>Конечный населенный пункт</label>
+                            </div>
+                            <div>
+                                <select class="form-control" ng-model="formModel.to" name="to" required>
+                                    <option ng-show='formModel.to == ""' ng-selected='formModel.to == ""' value="">Выберите город</option>
+                                    <option ng-repeat="city in cities" value="{{city.id}}">{{city.name}}</option>
+                                </select>
+                                <span class="has-error" ng-show="cityForm.$submitted">
+                                    <span ng-show="cityForm.to.$error.required">Это поле обязательно</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="btn-footer">
+                        <button class="btn btn-primary" ng-click="setDistance(cityForm)" style="margin-right:41px">Сохранить</button>
+                    </div>                  
+                </div>
+            </form>           
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/controllers/cityController.js"></script>
+
