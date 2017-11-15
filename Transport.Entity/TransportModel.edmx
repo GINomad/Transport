@@ -119,6 +119,7 @@
           <Property Name="DriverId" Type="int" Nullable="false" />
           <Property Name="TransportTypeId" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="MaxSpeed" Type="int" />
         </EntityType>
         <EntityType Name="TransportType">
           <Key>
@@ -419,6 +420,7 @@
           <NavigationProperty Name="Driver" Relationship="TransportDBModel.FK_Transport_Driver" FromRole="Transport" ToRole="Driver" />
           <NavigationProperty Name="Orders" Relationship="TransportDBModel.FK_Order_Transport" FromRole="Transport" ToRole="Order" />
           <NavigationProperty Name="TransportType" Relationship="TransportDBModel.FK_Transport_TransportType" FromRole="Transport" ToRole="TransportType" />
+          <Property Name="MaxSpeed" Type="Int32" />
         </EntityType>
         <EntityType Name="TransportType">
           <Key>
@@ -605,6 +607,7 @@
           <EntitySetMapping Name="Transports">
             <EntityTypeMapping TypeName="TransportDBModel.Transport">
               <MappingFragment StoreEntitySet="Transport">
+                <ScalarProperty Name="MaxSpeed" ColumnName="MaxSpeed" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="TransportTypeId" ColumnName="TransportTypeId" />
                 <ScalarProperty Name="DriverId" ColumnName="DriverId" />

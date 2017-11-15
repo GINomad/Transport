@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Transport.Business.Interfaces;
 using Transport.Entity;
 using Transport.Infrastructure;
@@ -33,14 +31,14 @@ namespace Transport.Business.Managers
                     Height = model.Height,
                     Width = model.Width,
                     Name = model.Name
-                    
+
                 };
 
                 orderRepository.Add(order);
-                orderRepository.SaveChanges();                
+                orderRepository.SaveChanges();
                 return true;
             }
-        }       
+        }
 
         public List<OrderViewModel> GetOrders()
         {
@@ -69,7 +67,33 @@ namespace Transport.Business.Managers
                 }
                 return list;
             }
-        }       
+        }
+
+        public DetailsViewModel GetOrder(int id)
+        {
+            using (IRepository<Order> orderRepository = Factory.GetService<IRepository<Order>>())
+            {
+                var order = orderRepository.FirstOrDefault(x => x.OrderId == id);
+                if(order != null)
+                {
+                    double totalDistance = default(double);
+
+                    DetailsViewModel model = new DetailsViewModel
+                    {
+                        Cities = BuildPath(order, out totalDistance).ToList(),
+                        TotalDistance = totalDistance,
+                        TransportName = order.Transport.Name,
+                        From = order.FromAddress,
+                        To = order.ToAddress,
+                        EstimatedTime = GetEstimatedTime(order.Transport.CarryingCapacity, order.Weight, order.Transport.MaxSpeed.Value, totalDistance)
+                    };
+
+                    return model;
+                }
+
+                return null;
+            }
+        }
 
         private int ChoiceCar(OrderViewModel model)
         {
@@ -157,24 +181,76 @@ namespace Transport.Business.Managers
                 }
                 return 0;
             }
-                  
+
         }
 
-        public IEnumerable<int> BuildPath(int id)
+        private double GetEstimatedTime(double? carWeight, double productWeight, int maxSpeed, double totalDistance)
+        {
+            if (carWeight.HasValue)
+            {
+                var percentWeight = productWeight * 100 / carWeight;
+                percentWeight = percentWeight > 50 ? 50 : percentWeight;
+
+                var speed = maxSpeed - (maxSpeed * percentWeight / 100) ;
+                var time = totalDistance / speed;
+                return System.Math.Round(time.Value, 1) * 60;
+            }
+
+            return 0;            
+        }
+
+        public IEnumerable<string> BuildPath(Order order, out double totalDistance)
         {
             using (IRepository<Order> orderRepository = Factory.GetService<IRepository<Order>>())
+            using (IRepository<City> cityRepository = Factory.GetService<IRepository<City>>())
+            using (IRepository<Destination> destRepository = Factory.GetService<IRepository<Destination>>())
             {
-                var order = orderRepository.FirstOrDefault(x => x.OrderId == id);
-                if(order != null)
+                if (order != null)
                 {
-                    var algorithm = Factory.GetService<IDijkstraAlgorithm>();
-                    algorithm.Initialize(order.FromCity, order.ToCity);
+                    try
+                    {
+                        var cities = cityRepository.GetAll().AsEnumerable();
+                        var algorithm = Factory.GetService<IDijkstraAlgorithm>();
+                        algorithm.Initialize(order.FromCity, order.ToCity);
 
-                    return algorithm.GetPath();
+                        var cityPath = algorithm.GetPath()?.ToArray();
+                        if (cityPath != null)
+                        {
+                            List<string> cityNames = new List<string>();
+                            double sum = 0;
+                            for (int i = 0; i < cityPath.Length; i++)
+                            {
+                                if (i != cityPath.Length - 1)
+                                {
+                                    sum += this.GetDistance(destRepository, cityPath[i], cityPath[i + 1]);
+                                }
+                                var city = cities.FirstOrDefault(x => x.Id == cityPath[i]);
+
+                                if (city != null)
+                                {
+                                    cityNames.Add(city.Name);
+                                }
+                            }
+                            totalDistance = sum;
+                            return cityNames;
+                        }
+                    }
+                    catch(Exception ex)
+                    {
+                        totalDistance = 0;
+                        return new List<string>();
+                    }                    
                 }
 
-                return null;
+                totalDistance = 0;
+                return new List<string>();
             }
         }
+
+        private double GetDistance(IRepository<Destination> repo, int from, int to)
+        {
+            var distance = repo.FirstOrDefault(x => (x.Source == from && x.Target == to) || (x.Target == from && x.Source == to))?.Destination1;
+            return distance.HasValue ? distance.Value : 0;
+        }      
     }
 }

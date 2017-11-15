@@ -25,6 +25,7 @@ namespace Transport.Business.Managers
                 transport.FuelConsumption = new Nullable<double>(model.FuelConsumption);
                 transport.TransportTypeId = model.Type.TypeId;
                 transport.Name = model.Name;
+                transport.MaxSpeed = model.MaxSpeed;
 
                 repository.Add(transport);
                 repository.SaveChanges();

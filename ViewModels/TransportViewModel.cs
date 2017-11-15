@@ -28,6 +28,9 @@ namespace Transport.ViewModels
         [Display(Name= "Грузоподъемность. кг")]
         public double CarryingCapacity { get; set; }
 
+        [Display(Name = "Максимальная скорость. км/ч")]
+        public int MaxSpeed { get; set; }
+
         [Display(Name = "Расход топлива. л/100км")]
         public double FuelConsumption { get; set; }
 

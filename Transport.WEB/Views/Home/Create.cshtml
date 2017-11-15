@@ -35,7 +35,7 @@
                         <div class="form-group">
                             <label class="control-label">Дата отправки</label>
                             <div>
-                                <input class="form-control datepicker" name="fromDate" type="datetime" ng-model="formModel.fromDate" required />
+                                <input type="date" class="form-control" name="fromDate" type="datetime" ng-model="formModel.fromDate" required />
                                 <span class="has-error" ng-show="orderForm.$submitted">
                                     <span ng-show="orderForm.fromDate.$error.required">Это поле обязательное</span>
                                 </span>
@@ -74,7 +74,7 @@
                         <div class="form-group">
                             <label class="control-label">Дата отправки</label>
                             <div>
-                                <input class="form-control datepicker" name="toDate" type="datetime" ng-model="formModel.toDate" required />
+                                <input type="date" class="form-control" name="toDate" type="datetime" ng-model="formModel.toDate" required />
                                 <span class="has-error" ng-show="orderForm.$submitted">
                                     <span ng-show="orderForm.toDate.$error.required">Это поле обязательное</span>
                                 </span>
@@ -88,7 +88,7 @@
             <div class="panel panel-info">
                 <div class="panel-heading">Характеристики товара</div>
                 <div class="panel-body">
-                    <div class="row">
+                    <div class="row" style="margin-left:inherit">
                         <div class="form-group">
                             <label class="control-label">Название товара</label>
                             <div>

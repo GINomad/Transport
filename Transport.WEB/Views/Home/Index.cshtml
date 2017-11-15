@@ -29,7 +29,7 @@
                 Тип транспорта
             </th>
         </tr>
-        <tr ng-repeat="order in orders" ng-click="details($index)">
+        <tr style="cursor:pointer" ng-repeat="order in orders" ng-click="details($index)">
             <td>{{order.name}}</td>
             <td>
                 {{order.fromDate | date: 'dd/MM/yyyy'}}

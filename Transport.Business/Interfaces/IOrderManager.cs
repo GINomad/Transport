@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using Transport.Entity;
 using Transport.ViewModels;
+using ViewModels;
 
 namespace Transport.Business.Interfaces
 {
@@ -13,7 +11,8 @@ namespace Transport.Business.Interfaces
 
         List<OrderViewModel> GetOrders();
 
-        IEnumerable<int> BuildPath(int id);
+        IEnumerable<string> BuildPath(Order order, out double totalDistance);
+        DetailsViewModel GetOrder(int id);
     }
    
 }

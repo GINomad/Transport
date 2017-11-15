@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Transport.Infrastructure;
 using Transport.Business.Interfaces;
 using Transport.ViewModels;
+using ViewModels;
 
 namespace Transport.WEB.Controllers
 {
@@ -39,9 +40,8 @@ namespace Transport.WEB.Controllers
 
         public ActionResult Details(int id)
         {
-            var result = Factory.GetService<IOrderManager>().BuildPath(id);
-
-            return View(result);
+            var details = Factory.GetService<IOrderManager>().GetOrder(id);
+            return View(details);
         }
 
         public ActionResult Contact()
